@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Card, CardContent, Typography, CardActions } from '@material-ui/core';
-import Questions from './api/Fetch';
+import Count from './api/Count';
+import Question from './api/Question';
 
 const useStyles ={
     root: {
@@ -40,7 +40,7 @@ class QuizCard extends React.Component {
             score: 0,
             question: '',
             answer: '',
-            selectedOption: ''
+            selectedOption: '',
         }
         
         this.handleClick = this.handleClick.bind(this);
@@ -48,13 +48,13 @@ class QuizCard extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }   
 
-    loadQuiz = () => {
-        const {currentIndex} = this.state;
+    loadQuiz = (count, array) => {
         this.setState(() => {
             return{
-                question: Questions[currentIndex].question,
-                options:  Questions[currentIndex].options,
-                answer:   Questions[currentIndex].answer
+                numberOfQuestions: count,
+                options: array[1],
+                question: array[0],
+                answer: array[2]
             }
         })
     }
@@ -80,42 +80,58 @@ class QuizCard extends React.Component {
 
     handleClick (event) {
         event.preventDefault();
-        const { currentIndex, score, userAnswer } = this.state;
-        if(Questions[currentIndex].answer === userAnswer){
-            this.setState({
-                score: score + 1,
-                currentIndex: this.state.currentIndex + 1,
-                checked: false,
-                selectedOption: ''
-            })
-        }else{
-            this.setState({
-                currentIndex: this.state.currentIndex + 1,
-                checked: false
-            });
+        const { score, userAnswer, answer } = this.state;
+        if(answer === userAnswer){
+                this.setState({
+                    score: score + 1,
+                    currentIndex: this.state.currentIndex + 1,
+                    checked: false,
+                    selectedOption: '',
+                    userAnswer: ''
+                })
+            }
+        else{
+            if(userAnswer !== ''){
+                this.setState({
+                    currentIndex: this.state.currentIndex + 1,
+                    checked: false,
+                    userAnswer: ''
+                });
+             }
         }
 
     }
 
-    componentDidMount() {
-        this.loadQuiz();
-    }
+    componentDidMount(){
+        Question(1)
+        .then(array =>{
+            
+            Count()
+            .then(count =>{
+            this.loadQuiz(count, array)
+        })
+        })
+        .catch(err => console.log(err));
+}
+
+
+    
 
     componentDidUpdate(prevProps, prevState){
-        const { currentIndex, quizEnd } = this.state;
-        if(currentIndex != prevState.currentIndex){
-            if(currentIndex < Questions.length)
-                this.setState(() => {
-                    return {
-                        question: Questions[currentIndex].question,
-                        options:  Questions[currentIndex].options,
-                        answer:   Questions[currentIndex].answer
-                    }
-                })
-            else{
+        const { currentIndex, quizEnd, numberOfQuestions } = this.state;
+        if(currentIndex !== prevState.currentIndex){
+            if(currentIndex < numberOfQuestions){
+                Question(currentIndex + 1).then(array => {
+                    this.setState({
+                       question: array[0],
+                       options: array[1],
+                       answer: array[2] 
+                    })
+                }).catch(err => console.log(err));
+            }else{
                 this.setState({
                     quizEnd: true,
-                    currentIndex: Questions.length - 1
+                    currentIndex: numberOfQuestions -1
                 })
             }
         }
@@ -123,13 +139,13 @@ class QuizCard extends React.Component {
     
     render(){
         const { classes } = this.props;
-        const { question, options, currentIndex, userAnswer, quizEnd, score, checked, selectedOption } = this.state;
+        const { question, options, currentIndex, quizEnd, score, checked, selectedOption, numberOfQuestions } = this.state;
   
     
     return(
                 <div>
                     <h1>{question}</h1>
-                    <span>Question {currentIndex + 1} of {Questions.length}</span>
+                    {numberOfQuestions? <span>Question {currentIndex + 1} of {numberOfQuestions}</span>:<div></div>}
                     {!quizEnd? (
                     <div className={classes.root}>
                         <form className={classes.radioButtons}>
@@ -138,9 +154,9 @@ class QuizCard extends React.Component {
                                     options.map(option =>{
                                         
                                             return(
-                                                <div className={classes.radio}>
-                                                    <input type="radio" id={option} key={option} value={option} onClick={this.handleChange} className={classes.radio} checked={selectedOption === option}/>
-                                                    <label for={option} key={option}>{option}</label>
+                                                <div className={classes.radio} key={option}>
+                                                    <input type="radio" id={option} value={option} onChange={this.handleChange} className={classes.radio} checked={selectedOption === option}/>
+                                                    <label>{option}</label>
                                                 </div>
                                             )
                                         
@@ -148,13 +164,13 @@ class QuizCard extends React.Component {
 
                             }
                             <br></br>
-                            <button onClick={this.handleClick}>Submit</button>
+                            {numberOfQuestions?<button onClick={this.handleClick}>Submit</button>: <div></div>}
                         </form>
                     </div>):
                     (
                         <div>
-                        <h1>Your score is {score/Questions.length*100}%</h1>
-                        <button onClick={this.restart}>Play Again?</button>
+                        <h1>Your score is {score/numberOfQuestions*100}%</h1>
+                        <button onClick={this.restart}>Restart</button>
                         </div>
                     )
 

@@ -6,21 +6,22 @@ import QuizCard from './components/QuizCard';
 
 
 
-function App() {
+class App extends React.Component {
+  render(){
   return (
     <div className="App">
       <Grid container direction="column">
         <Grid item>
           <Title />
         </Grid>
-        <Grid item>
+        <Grid>
         </Grid>
         <Grid item>
           <QuizCard />
         </Grid>
       </Grid>
     </div>
-  );
+  )}
 }
 
 export default App;
