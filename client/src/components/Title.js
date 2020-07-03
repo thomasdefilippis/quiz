@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
     root: {
       textAlign: 'center',
-      backgroundColor: 'black'
     },
 
     appBar: {
@@ -13,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     title: {
-        fontSize: '40px',
+        fontSize: '80px',
         color: '#009ACD'
     },
 }));
