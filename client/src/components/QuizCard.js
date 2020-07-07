@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Count from './api/Count';
 import Question from './api/Question';
+import Count from './api/Count';
 import { Card } from '@material-ui/core';
 
 const useStyles ={
@@ -193,12 +193,12 @@ class QuizCard extends React.Component {
                     {!quizEnd? (
                         <div>
                             <header className={classes.header}>
-                                <h1 className={classes.title}>{question}</h1>
+                                <h1 className={classes.title} data-testid='question'>{question}</h1>
                                 {
                                     numberOfQuestions? 
                                     <span className={classes.questionNumber}>
                                         Question {currentIndex + 1} of {numberOfQuestions}
-                                    </span>:''
+                                    </span>:<span className = 'spinner'></span>
                                 }
                             </header>
                             

@@ -1,18 +1,28 @@
+
 import QuizCard from '../QuizCard';
-import { expectation } from 'sinon';
+import Question from '../api/Question'
 
-it("renders correctly", () => {
-    const wrapper = shallow(    //shallow does not mount entire DOM but just gives a shallow version of it
-        <QuizCard />
-    );
 
-    expect(wrapper).toMatchSnapshot();
+beforeAll(() => {
+    global.fetch = jest.fn();`+`
 });
 
-it("renders correctly again", () => {
-    const wrapper = render(  
-        <QuizCard />
-    );
+let wrapper;
+~+
+beforeEach (() =>{
+    wrapper = shallow(<QuizCard />, { disableLifecycleMethods: true });
+});
 
-    expect(wrapper).toMatchSnapshot();
-})
+afterEach(() => {
+    wrapper.unmount();
+});
+
+
+
+it("must render a loading span before api call success", () => {
+    expect(wrapper.find("span.spinner").exists).toBeTruthy();
+});
+
+
+
+

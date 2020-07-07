@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="makeStyles-root-1"
+>
+  <WithStyles(ForwardRef(AppBar))
+    className="makeStyles-appBar-2"
+    position="static"
+  >
+    <WithStyles(ForwardRef(Typography))
+      className="makeStyles-title-3"
+      variant="h6"
+    >
+      Quiz
+    </WithStyles(ForwardRef(Typography))>
+  </WithStyles(ForwardRef(AppBar))>
+</div>
+`;
+
+exports[`renders correctly again 1`] = `
+<div
+  class="makeStyles-root-1"
+>
+  <header
+    class="MuiPaper-root MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary makeStyles-appBar-2 MuiPaper-elevation4"
+  >
+    <h6
+      class="MuiTypography-root makeStyles-title-3 MuiTypography-h6"
+    >
+      Quiz
+    </h6>
+  </header>
+</div>
+`;

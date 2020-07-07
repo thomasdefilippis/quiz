@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 //get Count
-app.get('/', async (req, res) =>{
+app.get('/count', async (req, res) =>{
     try{
         const Count = await pool.query("SELECT COUNT(*) FROM questions");
         res.json(Count.rows)
@@ -17,6 +17,15 @@ app.get('/', async (req, res) =>{
 })
 
 //get one question
+
+app.get('/', async (req, res) =>{
+    try{
+        const Count = await pool.query("SELECT question FROM questions");
+        res.json(Count.rows)
+    }catch(err){
+        console.error(err.message);
+    }
+})
 
 app.get('/:id', async (req, res) => {
     try{
