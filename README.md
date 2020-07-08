@@ -1,4 +1,4 @@
-# quiz app
+## Quiz app
 
 #Overview
 
