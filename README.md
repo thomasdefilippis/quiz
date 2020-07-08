@@ -15,4 +15,20 @@ Built as a full-stack application, this program is built in the PERN Stack with 
 Presently, the jest testing suite has six test cases which check the api calls and the rendering of each component. However, it tests the api calls directly with jest instead of using mocks. So, the api calls could be mocked and tested without calling them directly. Further, on the digital ocean server, the certification for a secure url (https) was completed, but somehow it got disconnected. As this is a small project without user credentials, it is not a significant matter, but otherwise it would be important to safeguard against attacks. Lastly, it would have been better to configure the Nginx engine to redirect api routes to the express server instead of making it accessible through the main domain, so that the json object would not have been so easily public. 
 
 ## Local Installation Instructions for Windows
-1. Clone the repository from 
+1. Clone the repository from https://github.com/thomasdefilippis/quiz.git
+2. If you do not have Nodejs installed, download it here https://nodejs.org/en/download/
+3. If you do not have PostgreSQL installed, download it here https://www.postgresql.org/download/
+4. Create credentials for PostgreSQL, or confirm existing credentials.
+5. On command line or bash, sign into postgreSQL with 'psql -U userName' and enter password.
+6. Then follow the script steps in database.ps1 located in the root respository folder. Enter these scripts into bash.
+7. Navigate in bash or command line to the quiz/client folder and run 'npm install'
+8. Enter the quiz/server and run 'npm install'
+9. Navigate to db.js located in the server folder, open it, and put in your PostgreSQL username and password. Save it, and exit. 
+10. start the server by running 'nodemon index.js'
+11. In a seperate bash or command line window, navigate to quiz/client and run 'npm start'.
+12. Now, you should see your application pop up in your browser. If it doesn't, then it is running on http://localhost:3000
+
+## Link to Hosted Application
+
+  http://quizappthomasdefilippis.com/
+
