@@ -23,10 +23,11 @@ Presently, the jest testing suite has six test cases which check the api calls a
 6. Then follow the script steps in database.ps1 located in the root respository folder. Enter these scripts into bash.
 7. Navigate in bash or command line to the quiz/client folder and run 'npm install'
 8. Enter the quiz/server and run 'npm install'
-9. Navigate to db.js located in the server folder, open it, and put in your PostgreSQL username and password. Save it, and exit. 
-10. start the server by running 'nodemon index.js'
-11. In a seperate bash or command line window, navigate to quiz/client and run 'npm start'.
-12. Now, you should see your application pop up in your browser. If it doesn't, then it is running on http://localhost:3000
+9. Then run 'npm run build'
+10. Navigate to db.js located in the server folder, open it, and put in your PostgreSQL username and password. Save it, and exit. 
+11. start the server by running 'nodemon index.js'
+12. In a seperate bash or command line window, navigate to quiz/client and run 'npm start'.
+13. Now, you should see your application pop up in your browser. If it doesn't, then it is running on http://localhost:3000
 
 ## Link to Hosted Application
 
