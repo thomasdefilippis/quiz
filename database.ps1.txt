@@ -1,0 +1,22 @@
+1. CREATE DATABASE pernquestions;
+
+2. \c pernquestions
+
+
+3. CREATE TABLE questions(
+    id SERIAL PRIMARY KEY,
+    question TEXT NOT NULL,
+    option1 TEXT NOT NULL,
+    option2 TEXT NOT NULL,
+    option3 TEXT NOT NULL,
+    option4 TEXT NOT NULL,
+    answer TEXT NOT NULL
+);
+
+4. INSERT INTO questions (id, question, option1, option2, option3, option4, answer)
+   Values (1, 'What is the Capitol of Washington?', 'Denver', 'Olympia', 'Seattle', 'Spokane', 'Olympia')
+	(2, 'Which country invented French Fries?', 'Belgium', 'France', 'Germany', 'United States', 'Belgium')
+	(3, 'Who Wrote "The Tenant of Wildfell Hall?"', 'Jane Austen', 'Anne Bronte', 'Charles Dickens', 'George Eliot', 'Anne Bronte')
+	(4, 'Who invented the first sustainable lightbulb?', 'Thomas Edison', 'Eli Whitney', 'George Washington', 'J.S. Bach', 'Thomas Edison')
+	(5, 'When was the declaration of Independance signed?', '1774', '1775', '1776', '1777', '1776')
+	(6, 'Who said "I think, Therfore I am?"', 'Plato', 'Socrates', 'Shakespeare', 'Descartes', 'Descartes');
